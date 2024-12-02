@@ -33,7 +33,7 @@ class App extends StatelessWidget {
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.primaryColor,
-          foregroundColor: Colors.white, // Text/icon color
+          foregroundColor: Colors.white,
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
