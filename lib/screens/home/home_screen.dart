@@ -195,31 +195,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(width: 12.0),
                         Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 1,
-                                  offset: Offset(2.0, 4.0),
-                                ),
-                              ],
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Order Now',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
+                          child: GestureDetector(
+                            onTap: () =>
+                                Navigator.pushNamed(context, AppRoutes.catalog),
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 1,
+                                    offset: Offset(2.0, 4.0),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Order Now',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
