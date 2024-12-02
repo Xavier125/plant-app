@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/configs/app_colors.dart';
 import 'package:plant_app/configs/app_routes.dart';
+import 'package:plant_app/models/cart.dart';
 import 'package:plant_app/widgets/plant_card_widget.dart';
 
 class CatalogScreen extends StatefulWidget {
-  const CatalogScreen({super.key});
+  const CatalogScreen({
+    super.key,
+  });
 
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
@@ -21,6 +24,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              // AppRoutes.navigateTo(
+              //   context,
+              //   AppRoutes.cartDetail,
+              //   arguments: widget.cart,
+              // );
               Navigator.pushNamed(context, AppRoutes.cart);
             },
             icon: const Icon(Icons.shopping_cart_outlined),

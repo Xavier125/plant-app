@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/configs/app_colors.dart';
+import 'package:plant_app/models/cart.dart';
+import 'package:plant_app/models/cart_item.dart';
+import 'package:plant_app/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class PlantDetailScreen extends StatefulWidget {
   const PlantDetailScreen({super.key});
@@ -10,6 +14,7 @@ class PlantDetailScreen extends StatefulWidget {
 
 class _PlantDetailScreenState extends State<PlantDetailScreen> {
   int quantity = 1;
+  Cart cart = Cart();
 
   void _increaseQuantity() {
     setState(() {
@@ -22,6 +27,14 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
       if (quantity > 1) quantity--;
     });
   }
+
+  // void _addToCart(String name, double price, int quantity) {
+  //   CartItem cartItem = CartItem(name: name, price: price, quantity: quantity);
+  //   setState(() {
+  //     cart.addItem(cartItem);
+  //   });
+  //   print(cart);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -163,6 +176,14 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
               onPressed: () {
                 debugPrint('Item added: $quantity');
                 setState(() {
+                  Provider.of<CartProvider>(context, listen: false)
+                      .addItemToCart(
+                    CartItem(
+                      name: 'Product Item',
+                      price: 10.50,
+                      quantity: quantity,
+                    ),
+                  );
                   quantity = 1;
                 });
               },
