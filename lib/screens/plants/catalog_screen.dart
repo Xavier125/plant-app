@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/configs/app_colors.dart';
 import 'package:plant_app/configs/app_routes.dart';
-import 'package:plant_app/models/cart.dart';
+import 'package:plant_app/data/plant_data.dart';
+import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/widgets/plant_card_widget.dart';
 
 class CatalogScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class CatalogScreen extends StatefulWidget {
 
 class _CatalogScreenState extends State<CatalogScreen> {
   final TextEditingController _searchController = TextEditingController();
+  List<Plant> plants = plantData();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // AppRoutes.navigateTo(
-              //   context,
-              //   AppRoutes.cartDetail,
-              //   arguments: widget.cart,
-              // );
               Navigator.pushNamed(context, AppRoutes.cart);
             },
             icon: const Icon(Icons.shopping_cart_outlined),
@@ -98,9 +95,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   shrinkWrap: true,
-                  itemCount: 50,
+                  itemCount: plants.length,
                   itemBuilder: (context, index) {
-                    return const PlantCard();
+                    return PlantCard(
+                      plant: plants[index],
+                    );
                   },
                 ),
               ),

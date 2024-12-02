@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/configs/app_colors.dart';
 import 'package:plant_app/configs/app_routes.dart';
+import 'package:plant_app/models/plant.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard({
-    super.key,
-  });
+  final Plant plant;
+  const PlantCard({super.key, required this.plant});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,8 @@ class PlantCard extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
-              child: Image.network(
-                'https://www.shutterstock.com/image-photo/young-plant-growth-spouts-on-260nw-2510787589.jpg',
+              child: Image.asset(
+                'assets/images/plants/plant_(${plant.id}).png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -50,12 +50,13 @@ class PlantCard extends StatelessWidget {
           const SizedBox(
             width: 4.0,
           ),
-          const Expanded(child: Text('Plant Name')),
+          Expanded(child: Text(plant.name)),
           const SizedBox(
             width: 4.0,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, AppRoutes.plantDetail,
+                arguments: plant),
             child: Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 4.0,
@@ -73,14 +74,10 @@ class PlantCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, AppRoutes.plantDetail),
-                child: const Text(
-                  'View More',
-                  style: TextStyle(
-                    color: AppColors.accentColor,
-                  ),
+              child: const Text(
+                'View More',
+                style: TextStyle(
+                  color: AppColors.accentColor,
                 ),
               ),
             ),
