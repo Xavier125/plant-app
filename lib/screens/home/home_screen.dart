@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/configs/app_colors.dart';
 import 'package:plant_app/configs/app_routes.dart';
+import 'package:plant_app/data/plant_data.dart';
+import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/widgets/plant_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
       'assets/images/banners/banner-2.png',
       'assets/images/banners/banner-3.png',
     ];
+
+    List<Plant> plants = plantData();
 
     return Scaffold(
       body: Stack(
@@ -307,7 +311,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           shrinkWrap: true,
                           itemCount: 3,
                           itemBuilder: (context, index) {
-                            return const PlantCard();
+                            final plant = plants[index];
+                            return PlantCard(
+                              plant: plant,
+                            );
                           },
                         ),
                       ],
