@@ -28,100 +28,129 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Consumer<CartProvider>(builder: (context, cartProvider, child) {
-              final cart = cartProvider.cart;
-              return ListView.builder(
-                shrinkWrap: true,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                itemCount: cart.items.length,
-                itemBuilder: (context, index) {
-                  CartItem item = cart.items[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
+            Consumer<CartProvider>(
+              builder: (context, cartProvider, child) {
+                final cart = cartProvider.cart;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        itemCount: cart.items.length,
+                        itemBuilder: (context, index) {
+                          CartItem item = cart.items[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey,
+                              ),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            padding: const EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.only(bottom: 6.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 64,
+                                  width: 64,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 1,
+                                        offset: Offset(1.0, 2.0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    child: Image.asset(
+                                      'assets/images/plants/plant_(${item.id}).png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8.0,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.name,
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Quantity: ${item.quantity}',
+                                        style: const TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                        'RM ${cart.getItemTotalPrice(item.id).toStringAsFixed(2)}'),
+                                    GestureDetector(
+                                      onTap: () => cartProvider
+                                          .removeItemFromCart(item.id),
+                                      child: const Text(
+                                        'remove item',
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      const Divider(
+                        height: 1,
                         color: Colors.grey,
                       ),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    margin: const EdgeInsets.only(bottom: 6.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4.0),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 1,
-                                offset: Offset(1.0, 2.0),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4.0),
-                            child: Image.network(
-                              'https://www.shutterstock.com/image-photo/young-plant-growth-spouts-on-260nw-2510787589.jpg',
-                              fit: BoxFit.cover,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Total: RM ${cart.getCartTotalPrice().toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.name,
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                'Quantity: ${item.quantity}',
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                                'RM ${cart.getItemTotalPrice(item.name).toString()}'),
-                            GestureDetector(
-                              onTap: () =>
-                                  cartProvider.removeItemFromCart(item.name),
-                              child: const Text(
-                                'remove item',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            }),
-            const SizedBox(
-              height: 16.0,
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

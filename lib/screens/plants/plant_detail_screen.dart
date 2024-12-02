@@ -159,13 +159,13 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                debugPrint('Item added: $quantity');
                 setState(() {
                   Provider.of<CartProvider>(context, listen: false)
                       .addItemToCart(
                     CartItem(
-                      name: 'Product Item',
-                      price: 10.50,
+                      id: widget.plant.id,
+                      name: widget.plant.name,
+                      price: widget.plant.price,
                       quantity: quantity,
                     ),
                   );
