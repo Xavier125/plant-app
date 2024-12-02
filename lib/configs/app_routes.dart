@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/screens/cart/cart_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/plants/catalog_screen.dart';
@@ -14,7 +15,18 @@ class AppRoutes {
   static final Map<String, WidgetBuilder> routes = {
     home: (context) => const HomeScreen(),
     catalog: (context) => const CatalogScreen(),
-    plantDetail: (context) => const PlantDetailScreen(),
     cart: (context) => const CartScreen(),
   };
+
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case plantDetail:
+        final plant = settings.arguments as Plant;
+        return MaterialPageRoute(
+          builder: (context) => PlantDetailScreen(plant: plant),
+        );
+      default:
+        return null;
+    }
+  }
 }

@@ -50,6 +50,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: true,
       initialRoute: AppRoutes.home,
       routes: AppRoutes.routes,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }
